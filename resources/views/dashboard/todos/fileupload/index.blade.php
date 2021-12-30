@@ -1,14 +1,13 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-<h3 class="mt-4 mb-4">File Uploads </h3>
+<h3 class="mt-4 mb-4">All File Uploads </h3>
 
-<a href="/dashboard/fileupload/create" class="btn btn-primary mb-3">Upload File</a>
 <div class="table-responsive col-lg-10 mt-3">
   <table class="table table-striped table-sm">
     <thead>
       <tr>
-        <th>Id</th>
+        <th>No</th>
         <th>Name</th>
         <th>Image</th>
         <th>Extension</th>

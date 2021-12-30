@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Todo_file_upload;
+use App\Models\Todos;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -15,11 +15,14 @@ class File_uploads extends Model
         'extension',
         'size',
         'path',
+        'message',
+        'is_complete',
+        'image',
     ];
 
-    public function todo_file_upload()
+    public function todos()
     {
-        return $this->hasMany(Todo_file_upload::class);
+        return $this->belongsToMany(Todos::class,'todo_file_upload','file_upload_id', 'todo_id');
     }
    
 }

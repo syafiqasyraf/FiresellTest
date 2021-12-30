@@ -47,8 +47,8 @@ class AdminController extends Controller
             'role'=> 'required'
         ]);
         
-        // $validatedData['name'] = auth()->user()->name;
-        $validatedData['password'] = bcrypt('password');
+        // To hash the password
+        // $validatedData['password'] = bcrypt('password');
         
         User::create($validatedData);
         

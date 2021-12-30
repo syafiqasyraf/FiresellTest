@@ -31,7 +31,7 @@
             </div>
             <div class="mb-2">
                 <label for="password" class="form-label">Password</label>
-                <input class="form-control @error('password') is-invalid @enderror" type="password" id="password"
+                <input class="form-control @error('password') is-invalid @enderror readonly" type="password" id="password"
                 name="password" required value="{{ old('password', $users->password) }}">
                 @error('password')
                     <div class="invalid-feedback">

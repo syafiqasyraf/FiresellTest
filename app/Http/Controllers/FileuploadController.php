@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Todos;
 use App\Models\File_uploads;
 use Illuminate\Http\Request;
+use App\Models\Todo_file_upload;
 use Illuminate\Support\Facades\Storage;
 
 class FileuploadController extends Controller
@@ -15,7 +17,7 @@ class FileuploadController extends Controller
      */
     public function index()
     {
-        return view('dashboard.fileupload.index',[
+        return view('dashboard.todos.fileupload.index',[
             'fileupload' => File_uploads::all(),
             'title' => 'fileupload',
         ]);
@@ -28,7 +30,11 @@ class FileuploadController extends Controller
      */
     public function create()
     {
-        return view('dashboard.fileupload.create');
+        return view('dashboard.todos.fileupload.create',[
+            'fileupload' => File_uploads::all(),
+            'todos'=> Todos::all(),
+            'title' => 'fileupload',
+        ]);
     }
 
     /**
@@ -37,21 +43,34 @@ class FileuploadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, File_uploads $file_uploads)
     {
         $validatedData = $request->validate([
-            size('path') => 'required',
+            'path' => 'required',
             'name' => 'required',
+            'todo_id' => 'required',
         ]);
 
         if($request->file('path')){
             $validatedData['path'] = $request->file('path')->store('todos-images');
+            $validatedData['extension'] = $request->path->extension();
+            $validatedData['size'] = $request->file('path')->getSize();
         }
-        // $validatedData['size'] = $request->size('path');
+        if($request->file('path')){
+            $todos = Todos::where('id', $request)->get();
 
-        File_uploads::create($validatedData);
+            // foreach($file_uploads as $fileupload)
+            // $fileupload->todos()->sync($todos, array('id' => 3), false);
+        }
 
-        return redirect('/dashboard/fileupload')->with('success','Berjaya ditambah!');
+        $file_uploads=File_uploads::create($validatedData);
+        $lastInsertedId = $file_uploads->id;
+        $file_uploads['file_upload_id'] = $lastInsertedId;
+        
+        $file_uploads->todos()->sync($request->input('todo_id','file_upload_id'));
+
+
+        return redirect('/dashboard/todos')->with('success','Berjaya ditambah!');
     }
 
     /**

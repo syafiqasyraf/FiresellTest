@@ -9,7 +9,7 @@
         <form method="post" action="/dashboard/todos" class="mb-5" enctype="multipart/form-data">
         @csrf
         <div class="mb-1">
-            <label for="message" class="form-label">ToDo</label>
+            <label for="message" class="form-label">ToDo Baru</label>
             <input type="text" class="form-control @error('message') is-invalid @enderror" id="message" 
             name="message" required value="{{old('message')}}">
             @error('message')
@@ -28,9 +28,19 @@
                 </div>
             @enderror
         </div>
-        <div class="mb-1">
-            <input type="hidden" class="form-control" id="is_complete" 
-            name="is_complete" required value=0>
+        <div class="mb-2">
+            <div >
+                <p>Status :</p>
+                <input type="radio" id="is_complete" name="is_complete" value=0 checked >
+                <label for="0" >Incomplete</label><br>
+                <input type="radio" id="is_complete" name="is_complete" value=1>
+                <label for="1" >Completed</label>
+            </div>
+            @error('is_complete')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
         <div class="mb-1">
             <input type="hidden" class="form-control" id="user_id" 
@@ -38,6 +48,7 @@
         </div>
     
         <button type="submit" class="btn btn-primary">Add</button>
+        <a href="/dashboard/todos" class="btn btn-danger">Back</a>
         </form>
     </div>
 @endsection

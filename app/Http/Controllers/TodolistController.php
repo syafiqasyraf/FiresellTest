@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todos;
+use App\Models\File_uploads;
 use Illuminate\Http\Request;
+use App\Models\Todo_file_upload;
 use Illuminate\Support\Facades\Storage;
 
 class TodolistController extends Controller
@@ -50,7 +52,6 @@ class TodolistController extends Controller
         if($request->file('image')){
             $validatedData['image'] = $request->file('image')->store('todos-images');
         }
-        // $validatedData['message'] = $request->filesize('image');
 
         
         // Set the user_id to current user
@@ -70,8 +71,13 @@ class TodolistController extends Controller
     public function show($id)
     {
         $todos = Todos::findOrFail($id);
+        $fileupload = File_uploads::where('id',$todos)->get();
+        // $fileupload = Todo_file_upload::where('todo_id',$id)->get();
+        
+        // dd($fileupload);
         return view('dashboard.todos.show',[
             'todos' => $todos,
+            'fileupload' => $fileupload,
         ]);
     }
 
@@ -83,10 +89,6 @@ class TodolistController extends Controller
      */
     public function edit(Todos $todos)
     {
-        if($todos->is_complete === 1){
-            return redirect('/dashboard/todos')->with('success','Edit Berjaya!');
-        }
-       
         return view('dashboard.todos.edit',[
             'todos' => $todos,
         ]);
@@ -100,15 +102,17 @@ class TodolistController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Todos $todos)
-    {
+    {dd($request);
         $validatedData = $request->validate([
             'message' => 'required',
             'is_complete' => 'nullable',
             'image' => 'image|file'
         ]);
+        $input = $request->boolean('is_complete');
 
-        if($request->is_complete){
-            Todos::where('id', $todos->id)->update('is_complete');
+        if($input->is_complete){
+            Todos::where('id', $todos->id)->update($input);
+            return redirect('/dashboard/todos')->with('success','Edit berjaya!');
         }
         if($request->file('image')){
             $validatedData['image'] = $request->file('image')->store('todos-images');
@@ -117,8 +121,6 @@ class TodolistController extends Controller
         if($request->oldImage){
             Storage::delete($request->oldImage);
         }
-        
-        $validatedData['is_complete'] = 0;
 
         Todos::where('id', $todos->id)
                     ->update($validatedData);

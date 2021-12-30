@@ -12,17 +12,6 @@ use App\Http\Controllers\TodolistController;
 use App\Http\Controllers\FileuploadController;
 
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/',[LoginController::class,'index']);
 
 Route::get('/register',[RegisterController::class,'index']);
@@ -37,6 +26,8 @@ Route::get('/dashboard', function(){
 })->middleware('auth');
 
 Route::resource('/dashboard/todos', TodolistController::class)->middleware('auth');
+Route::put('/dashboard/todos', [TodolistController::class,'store'])->middleware('auth');
 Route::resource('/dashboard/fileupload', FileuploadController::class)->middleware('auth');
+Route::post('/dashboard/todos/fileupload', [FileuploadController::class, 'store']);
 
 Route::resource('/dashboard/users', AdminController::class)->except('show')->middleware('admin');

@@ -18,11 +18,11 @@ class Todo_file_upload extends Model
 
     public function todos()
     {
-        return $this->belongsTo(Todos::class);
+        return $this->belongsTo(Todos::class)->withPivot('id');
     }
     public function fileupload()
     {
-        return $this->belongsTo(File_uploads::class);
+        return $this->belongsTo(File_uploads::class)->withPivot('id');
     }
    
 }
