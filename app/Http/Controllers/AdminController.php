@@ -15,10 +15,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        
         $users = User::withCount('todos')->where('id', '!=', auth()->id())->paginate(5);
         return view('dashboard.users.index', [
-            'users' => User::all()
+            'users' => User::all(),
+            'title' => 'Users',
         ]);
     }
 
@@ -48,7 +48,7 @@ class AdminController extends Controller
         ]);
         
         // To hash the password
-        // $validatedData['password'] = bcrypt('password');
+        $validatedData['password'] = bcrypt('password');
         
         User::create($validatedData);
         
@@ -91,7 +91,6 @@ class AdminController extends Controller
         $validatedData = $request->validate([
             'name'=> 'required|max:255',
             'email'=> 'required|email:dns',
-            'password'=> 'required|min:5|max:255',
             'role'=> 'required'
         ]);
         

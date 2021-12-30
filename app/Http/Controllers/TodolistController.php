@@ -87,10 +87,11 @@ class TodolistController extends Controller
      * @param  \App\Models\Todos  $todos
      * @return \Illuminate\Http\Response
      */
-    public function edit(Todos $todos)
+    public function edit(Todos $todos,$id)
     {
+        $todos = Todos::findOrFail($id);
         return view('dashboard.todos.edit',[
-            'todos' => $todos,
+            'todos' => $todos
         ]);
     }
 
@@ -101,28 +102,19 @@ class TodolistController extends Controller
      * @param  \App\Models\Todos  $todos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Todos $todos)
-    {dd($request);
-        $validatedData = $request->validate([
-            'message' => 'required',
-            'is_complete' => 'nullable',
-            'image' => 'image|file'
-        ]);
-        $input = $request->boolean('is_complete');
-
-        if($input->is_complete){
-            Todos::where('id', $todos->id)->update($input);
+    public function update(Request $request, Todos $todos,$id)
+    {
+        //For mark as complete function
+        if($request->is_complete == 3){
+            Todos::where('id', $id)->update(['is_complete'=>'1']);
             return redirect('/dashboard/todos')->with('success','Edit berjaya!');
         }
-        if($request->file('image')){
-            $validatedData['image'] = $request->file('image')->store('todos-images');
-        }
-
-        if($request->oldImage){
-            Storage::delete($request->oldImage);
-        }
-
-        Todos::where('id', $todos->id)
+        //For edit function
+        $validatedData = $request->validate([
+            'message' => 'required',
+            'is_complete' => 'required',
+        ]);
+        Todos::where('id', $id)
                     ->update($validatedData);
 
         return redirect('/dashboard/todos')->with('success','Edit berjaya!');

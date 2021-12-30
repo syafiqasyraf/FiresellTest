@@ -17,7 +17,6 @@ class CreateTodosTable extends Migration
             $table->id();
             $table->longText('message');
             $table->boolean('is_complete');
-            $table->string('image')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
             

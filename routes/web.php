@@ -27,6 +27,7 @@ Route::get('/dashboard', function(){
 
 Route::resource('/dashboard/todos', TodolistController::class)->middleware('auth');
 Route::put('/dashboard/todos', [TodolistController::class,'store'])->middleware('auth');
+Route::post('/dashboard/todos', [TodolistController::class,'store'])->middleware('auth');
 Route::resource('/dashboard/fileupload', FileuploadController::class)->middleware('auth');
 Route::post('/dashboard/todos/fileupload', [FileuploadController::class, 'store']);
 

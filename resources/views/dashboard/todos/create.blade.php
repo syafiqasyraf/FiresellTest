@@ -8,21 +8,11 @@
     <div class='col-lg-8'>
         <form method="post" action="/dashboard/todos" class="mb-5" enctype="multipart/form-data">
         @csrf
-        <div class="mb-1">
+        <div class="mb-2">
             <label for="message" class="form-label">ToDo Baru</label>
             <input type="text" class="form-control @error('message') is-invalid @enderror" id="message" 
             name="message" required value="{{old('message')}}">
             @error('message')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
-        </div>
-        <div class="mb-2">
-            <label for="image" class="form-label">Gambar(jika ada)</label>
-            <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"
-             name="image" multiple>
-            @error('image')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>

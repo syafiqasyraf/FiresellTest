@@ -33,7 +33,6 @@ class DatabaseSeeder extends Seeder
             'message'=> 'Go to Market',
             'is_complete'=> 1,
             'user_id'=> 1,
-            'image'=>'todos-images\Z8dYc3gnIQiz8cfW64wpnWezkpgqi9QfJdwueMdr.jpg',
         ]);
         Todos::create([
             'message'=> 'Go to Mosque',
@@ -41,7 +40,7 @@ class DatabaseSeeder extends Seeder
             'user_id'=> 2
         ]);
         File_uploads::create([
-            'path'=> 'todos-images\Z8dYc3gnIQiz8cfW64wpnWezkpgqi9QfJdwueMdr.jpg',
+            'path'=> 'todos-images/8rPljJzDqYutE3UViWWwZUWlQCFjCsg9DVAsikxj.jpg',
             'name'=> 'Vegetables',
             'extension'=> 'jpg',
             'size'=> '10240',

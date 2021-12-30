@@ -31,13 +31,9 @@
             </div>
             <div class="mb-2">
                 <label for="password" class="form-label">Password</label>
-                <input class="form-control @error('password') is-invalid @enderror readonly" type="password" id="password"
-                name="password" required value="{{ old('password', $users->password) }}">
-                @error('password')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+                <input class="form-control readonly" type="password" id="password"
+                name="password" value="{{ old('password') }}">
+                <small class="text-muted">*Let empty if you don't want to change the password</small>
             </div>
             <div class="mb-2">
                 <div >

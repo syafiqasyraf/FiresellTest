@@ -15,7 +15,6 @@ class Todos extends Model
         'message',
         'is_complete',
         'user_id',
-        'image',
         'name',
         'extension',
         'size',

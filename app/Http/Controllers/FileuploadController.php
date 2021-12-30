@@ -56,12 +56,8 @@ class FileuploadController extends Controller
             $validatedData['extension'] = $request->path->extension();
             $validatedData['size'] = $request->file('path')->getSize();
         }
-        if($request->file('path')){
-            $todos = Todos::where('id', $request)->get();
-
-            // foreach($file_uploads as $fileupload)
-            // $fileupload->todos()->sync($todos, array('id' => 3), false);
-        }
+       
+        $todos = Todos::where('id', $request)->get();
 
         $file_uploads=File_uploads::create($validatedData);
         $lastInsertedId = $file_uploads->id;
