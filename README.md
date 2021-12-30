@@ -8,8 +8,6 @@ I try to follow all the requirements but few modules are NOT working well yet.
 Some of it:
 1. Mark as complete function
 2. Edit todos
-3. Upload file on File Uploads
-4. File Uploads just show predefined data:(
 
 ps My Admin dashboard is working well but can only be accessed by admin role.
 
