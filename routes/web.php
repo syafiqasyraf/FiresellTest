@@ -13,6 +13,7 @@ use App\Http\Controllers\FileuploadController;
 
 
 Route::get('/',[LoginController::class,'index']);
+// Route::view('/','index');
 
 Route::get('/register',[RegisterController::class,'index']);
 Route::post('/register', [RegisterController::class, 'store']);
