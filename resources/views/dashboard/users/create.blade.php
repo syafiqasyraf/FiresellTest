@@ -54,7 +54,7 @@
         </div>
     
         <button type="submit" class="btn btn-primary">Add</button>
-        <a href="/dashboard/users" class="btn btn-danger">Back</a>
+        <a href="/dashboard/users" class="btn btn-danger">Cancel</a>
         </form>
     </div>
 @endsection

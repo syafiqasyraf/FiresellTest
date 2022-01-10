@@ -15,9 +15,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::withCount('todos')->where('id', '!=', auth()->id())->paginate(5);
+        $users = User::orderBy('created_at', 'asc')->paginate(2);
         return view('dashboard.users.index', [
-            'users' => User::all(),
+            'users' => $users,
             'title' => 'Users',
         ]);
     }

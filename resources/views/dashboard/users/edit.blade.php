@@ -63,8 +63,8 @@
                 @enderror
             </div>
             
-            <button type="submit" class="btn btn-primary">Simpan</button>
-            <a href="/dashboard/users" class="btn btn-danger">Batal</a>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="/dashboard/users" class="btn btn-danger">Cancel</a>
 
         </form>
     </div>

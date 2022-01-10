@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-<h3 class="mt-4 mb-4">All File Uploads </h3>
+<h3 class="mt-4 mb-4">All Images Uploaded </h3>
 
 <div class="table-responsive col-lg-10 mt-3">
   <table class="table table-striped table-sm">
@@ -10,33 +10,36 @@
         <th>No</th>
         <th>Name</th>
         <th>Image</th>
+        <!-- <th>ToDo</th> -->
         <th>Extension</th>
         <th>Size</th>
         <th>Path</th>
       </tr>
     </thead>
     <tbody>
-      @foreach ($fileupload as $fileupload)
+      @foreach ($fileupload as $fileuploads)
       <tr>
-        <td>{{ $loop -> iteration }}</td>
-        <td>{{ $fileupload->name }}</td>
+        <td>{{ ($fileupload ->currentpage()-1) * $fileupload ->perpage() + $loop->index + 1 }}</td>
+        <td>{{ ucwords($fileuploads->name) }}</td>
         <td>
-          @if ($fileupload->path)
+          @if ($fileuploads->path)
             <div style="max-height: 350px; overflow:hidden;">
-              <img src="{{ asset('storage/' .$fileupload->path) }}" alt="{{ $fileupload->name }}"
+              <img src="{{ asset('storage/' .$fileuploads->path) }}" alt="{{ $fileuploads->name }}"
                 class="img-fluid col-sm-3">
             </div>
           @else
             <Strong>Tiada gambar.</Strong>
           @endif
         </td>
-        <td>{{ $fileupload->extension }}</td>
-        <td>{{ $fileupload->size }}</td>
-        <td>{{ $fileupload->path }}</td>
+        <!-- <td>{{ $fileuploads->todos }}</td> -->
+        <td>{{ $fileuploads->extension }}</td>
+        <td>{{ $fileuploads->size }}</td>
+        <td>{{ $fileuploads->path }}</td>
       </tr>
       @endforeach
     </tbody>
   </table>
+  {{ $fileupload->links() }}
 </div>
 
 @endsection

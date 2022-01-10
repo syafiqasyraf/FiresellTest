@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
 
         Todos::create([
             'message'=> 'Go to Market',
-            'is_complete'=> 1,
+            'is_complete'=> 0,
             'user_id'=> 1,
         ]);
         Todos::create([
@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
             'user_id'=> 2
         ]);
         File_uploads::create([
-            'path'=> 'todos-images/8rPljJzDqYutE3UViWWwZUWlQCFjCsg9DVAsikxj.jpg',
+            'path'=> 'todos-images/0m4wg0KdVerR2ge8v8Bc7foZYBYAMqziTtBtFiKh.jpg',
             'name'=> 'Vegetables',
             'extension'=> 'jpg',
             'size'=> '10240',

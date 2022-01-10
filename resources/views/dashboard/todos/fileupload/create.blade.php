@@ -1,14 +1,13 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">File Upload</h1>
-    </div>
+    @foreach($todos as $todo)
+    <h3 class="mt-4 mb-3">Add Image : {{ $todo->message }}</h3><hr>
 
     <div class='col-lg-8'>
         <form method="post" action="/dashboard/fileupload" class="mb-5" enctype="multipart/form-data">
         @csrf
-        <div class="mb-2">
+        <!-- <div class="mb-2">
              <div class="input-group mb-3 ">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="message">Image For</label>
@@ -21,15 +20,16 @@
                     <option value="{{ $todos->id }}">{{ $loop->iteration }} {{ $todos->message }}</option>
                     @endforeach
                 </select>
-                @error('todo_id')
+               
+                @error('id')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
                 @enderror
             </div>
-        </div>
+        </div> -->
         <div class="mb-2">
-            <label for="path" class="form-label">Image</label>
+            <label for="path" class="form-label">Choose Image</label>
             <input class="form-control @error('path') is-invalid @enderror" type="file" id="path"
              name="path" multiple>
             @error('path')
@@ -48,8 +48,10 @@
                 </div>
             @enderror
         </div>
+        <input type="hidden" id="todo_id" name="todo_id" value="{{ $todo->id }}">
         <button type="submit" class="btn btn-primary">Add</button>
-        <a href="/dashboard/todos" class="btn btn-danger">Back</a>
+        <a href="/dashboard/todos/{{ $todos->id }}" class="btn btn-danger">Cancel</a>
         </form>
     </div>
+    @endforeach
 @endsection

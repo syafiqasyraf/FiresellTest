@@ -6,7 +6,10 @@ use App\Models\Todos;
 use App\Models\File_uploads;
 use Illuminate\Http\Request;
 use App\Models\Todo_file_upload;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\TodolistController;
 
 class FileuploadController extends Controller
 {
@@ -17,8 +20,10 @@ class FileuploadController extends Controller
      */
     public function index()
     {
+        $fileupload = File_uploads::paginate(4);
+        // dd($fileupload);
         return view('dashboard.todos.fileupload.index',[
-            'fileupload' => File_uploads::all(),
+            'fileupload' => $fileupload,
             'title' => 'fileupload',
         ]);
     }
@@ -28,11 +33,13 @@ class FileuploadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        // $fileupload = File_uploads::where('id',$request->id);
+        $todos = Todos::where('id',$request->id)->get();
         return view('dashboard.todos.fileupload.create',[
             'fileupload' => File_uploads::all(),
-            'todos'=> Todos::all(),
+            'todos'=> $todos,
             'title' => 'fileupload',
         ]);
     }
@@ -65,8 +72,7 @@ class FileuploadController extends Controller
         
         $file_uploads->todos()->sync($request->input('todo_id','file_upload_id'));
 
-
-        return redirect('/dashboard/todos')->with('success','Berjaya ditambah!');
+        return redirect()->action([TodolistController::class, 'show'],['todo' => $request->todo_id]);
     }
 
     /**

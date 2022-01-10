@@ -1,26 +1,22 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-<h3 class="mt-4 mb-4">Todos: {{ $todos->message }} </h3>
+<h3 class="mt-4 mb-4">Todos Name: {{ ucwords($todos->message) }} </h3>
 
-
+<strong>Created By</strong><p>{{ $todos->user->name }}</p>
+<strong>Status</strong>
 <div>
-  <strong>Todos</strong><p>{{ $todos->message }}</p>
-  <strong>By</strong><p>{{ $todos->user->name }}</p>
-  <strong>Status</strong>
-  <div>
-    @if ($todos->is_complete == 0)
-    <p class="text-danger">Incomplete</p>
-    @else
-    <p class="text-success">Completed</p>
-    @endif
-  </div>
+  @if ($todos->is_complete == 0)
+  <p class="text-danger">Incomplete</p>
+  @else
+  <p class="text-success">Completed</p>
+  @endif
 </div><hr>
 
 <h4>Images</h4>
 
-@if($todos->fileupload)
-  <div class="table-responsive col-lg-10 mt-3">
+@if(count($todos->fileupload) >= 1)
+  <div class="table-responsive mt-3">
     <table class="table table-striped table-sm">
       <thead>
         <tr>
@@ -36,7 +32,7 @@
           @foreach ($todos->fileupload as $fileupload)
           <tr>
             <td>{{ $loop -> iteration }}</td>
-            <td>{{ $fileupload->name }}</td>
+            <td>{{ ucwords($fileupload->name) }}</td>
             <td>
               @if ($fileupload->path)
                 <div style="max-height: 350px; overflow:hidden;">
@@ -54,10 +50,17 @@
           @endforeach
       </tbody>
     </table>
+    {{ $fileuploads->links() }}
   </div>
 @else
-  <p>Tiada gambar.</p>
+  <p>No image.</p>
 @endif
 
-<a href="/dashboard/todos" class="btn btn-success"><span data-feather="arrow-left"></span>Back</a>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+  <div>
+     <a href="/dashboard/fileupload/create?id={{ $todos->id }}" class="btn btn-primary text-light">Add Image</a>
+     <!-- <input type="hidden" id="todo_id" name="todo_id" value="{{ $todos->id }}"> -->
+  </div>
+  <a href="/dashboard/todos" class="btn btn-success"><span data-feather="arrow-left"></span>Back</a>
+</div>
 @endsection

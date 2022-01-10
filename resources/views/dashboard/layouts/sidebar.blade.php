@@ -8,7 +8,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {{ Request::is('dashboard/todos*') ? 'active' :'' }}" href="/dashboard/todos">
+                <a class="nav-link {{ Request::is('dashboard/todos*')||Request::is('dashboard/fileupload/create') ? 'active' :'' }}" href="/dashboard/todos">
                   <span data-feather="file-text"></span>
                   Todos
                 </a>
@@ -16,7 +16,7 @@
               <li class="nav-item">
                 <a class="nav-link {{ Request::is('dashboard/fileupload') ? 'active' :'' }}" href="/dashboard/fileupload">
                   <span data-feather="file-text"></span>
-                  File Uploads
+                  Image Uploads
                 </a>
               </li>
             </ul>
